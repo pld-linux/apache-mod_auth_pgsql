@@ -89,14 +89,13 @@ PostgreSQL-databas.
 	-I%{_includedir}/postgresql \
 	-lpq \
 	-c mod_%{mod_name}.c \
-	-o mod_%{mod_name}.so \
-	-Wl,-shared
+	-o mod_%{mod_name}.la
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/httpd.conf/}
+install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/httpd.conf}
 
-install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
+install .libs/mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
 install %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/httpd.conf/52_mod_auth_pgsql.conf
 
 %clean
