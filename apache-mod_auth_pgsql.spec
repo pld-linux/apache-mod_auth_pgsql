@@ -33,7 +33,7 @@ Obsoletes:	mod_auth_pgsql
 
 %description
 This is an authentication module for Apache that allows you to
-authenticate HTTP clients using postgresql RDBMS.
+authenticate HTTP clients using PostgreSQL RDBMS.
 
 %description -l cs
 Balíèek mod_auth_pgsql slou¾í pro omezení pøístupu k dokumentùm, které
@@ -67,7 +67,7 @@ Mod_auth_pgsql ¤Ï¡¢PostgresQL ¥Ç¡¼¥¿¥Ù¡¼¥¹¤Î¥Æ¡¼¥Ö¥ë¤ÎÃæ¤Î¥Õ¥£¡¼¥ë¥É¤ò
 
 %description -l pl
 To jest modu³ uwierzytelnienia dla Apache pozwalaj±cy na
-uwierzytelnianie klientów HTTP z u¿yciem bazy danych postgresql.
+uwierzytelnianie klientów HTTP z u¿yciem bazy danych PostgreSQL.
 
 %description -l pt_BR
 Com o mod_auth_pgsql você pode fazer autenticação no Apache usando o
