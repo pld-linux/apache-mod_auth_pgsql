@@ -1,0 +1,41 @@
+diff -uNdr mod_auth_pgsql-2.0.2b1.old/mod_auth_pgsql.c mod_auth_pgsql-2.0.2b1/mod_auth_pgsql.c
+--- mod_auth_pgsql-2.0.2b1.old/mod_auth_pgsql.c	2003-10-06 10:45:59.000000000 +0200
++++ mod_auth_pgsql-2.0.2b1/mod_auth_pgsql.c	2004-10-30 21:22:24.000000000 +0200
+@@ -88,7 +88,6 @@
+ 
+ #include "apr_hooks.h"
+ #include "apr.h"
+-#include "apr_compat.h"
+ #include "apr_lib.h"
+ #include "apr_strings.h"
+ #include "apr_buckets.h"
+@@ -449,16 +448,16 @@
+ char *auth_pg_md5(char *pw)
+ {
+ 	apr_md5_ctx_t ctx;
+-	unsigned char digest[MD5_DIGESTSIZE];
+-	static unsigned char md5hash[MD5_DIGESTSIZE * 2 + 1];
++	unsigned char digest[APR_MD5_DIGESTSIZE];
++	static unsigned char md5hash[APR_MD5_DIGESTSIZE * 2 + 1];
+ 	int i;
+ 
+ 	apr_md5(digest, (const unsigned char *) pw, strlen(pw));
+ 
+-	for (i = 0; i < MD5_DIGESTSIZE; i++)
++	for (i = 0; i < APR_MD5_DIGESTSIZE; i++)
+ 		apr_snprintf((char *) &md5hash[i + i], 3, "%02x", digest[i]);
+ 
+-	md5hash[MD5_DIGESTSIZE * 2] = '\0';
++	md5hash[APR_MD5_DIGESTSIZE * 2] = '\0';
+ 	return (char *) md5hash;
+ }
+ 
+@@ -631,7 +630,7 @@
+ 			return NULL;
+ 		}
+ 
+-		if (!(result = (char *) ap_palloc(r->pool, strlen(val) + 1))) {
++		if (!(result = (char *) apr_palloc(r->pool, strlen(val) + 1))) {
+ 			apr_snprintf(pg_errstr, MAX_STRING_LEN,
+ 						 "Could not get memory for Postgres query.");
+ 			PQclear(pg_result);
