@@ -13,13 +13,14 @@ Summary(pl):	Modu³ uwierzytelnienia PostgreSQL dla Apache
 Summary(pt_BR):	Autenticação via PostgreSQL para o Apache
 Summary(sv):	Grundläggande autenticering till webbservern Apache med en PostgreSQL-databas
 Name:		apache-mod_%{mod_name}
-Version:	0.9.12
-Release:	4
+Version:	2.0.2
+%define	_beta	b1
+Release:	0.%{_beta}.1
 License:	GPL
 Group:		Networking/Daemons
-Source0:	http://www.giuseppetanzilli.it/mod_%{mod_name}/dist/mod_%{mod_name}-%{version}.tar.gz
-# Source0-md5:	7be403b7487c13cdb023cc526ee2e13a
-URL:		http://www.giuseppetanzilli.it/mod_auth_pgsql/
+Source0:	http://www.giuseppetanzilli.it/mod_%{mod_name}2/dist/mod_%{mod_name}-%{version}%{_beta}.tar.gz
+# Source0-md5:	8216fde4597c288537ff4fec508a4b41
+URL:		http://www.giuseppetanzilli.it/mod_auth_pgsql2/
 BuildRequires:	%{apxs}
 BuildRequires:	apache(EAPI)-devel
 BuildRequires:	postgresql-devel
@@ -78,14 +79,15 @@ servade av en webbserver genom att kontrollera data i en
 PostgreSQL-databas.
 
 %prep
-%setup -q -n "mod_%{mod_name}-%{version}"
+%setup -q -n mod_%{mod_name}-%{version}%{_beta}
 
 %build
 %{apxs} \
-	-I %{_includedir}/postgresql \
-	-l pq \
+	-I%{_includedir}/postgresql \
+	-lpq \
 	-c mod_%{mod_name}.c \
-	-o mod_%{mod_name}.so
+	-o mod_%{mod_name}.so \
+	-Wl,-shared
 
 %install
 rm -rf $RPM_BUILD_ROOT
