@@ -18,17 +18,17 @@ Version:	2.0.2
 Release:	0.%{_beta}.1
 License:	GPL
 Group:		Networking/Daemons
-Source0:	http://www.giuseppetanzilli.it/mod_%{mod_name}2/dist/mod_%{mod_name}-%{version}%{_beta}.tar.gz
+Source0:	http://www.giuseppetanzilli.it/mod_auth_pgsql2/dist/mod_%{mod_name}-%{version}%{_beta}.tar.gz
 # Source0-md5:	8216fde4597c288537ff4fec508a4b41
 Source1:	apache-mod_auth_pgsql.conf
 Patch0:		apache-mod_auth_pgsql.patch
 URL:		http://www.giuseppetanzilli.it/mod_auth_pgsql2/
 BuildRequires:	%{apxs}
-BuildRequires:	apache-devel >= 2
+BuildRequires:	apache-devel >= 2.0.52-2
 BuildRequires:	postgresql-devel
-Requires:	apache >= 2
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Requires:	apache >= 2.0.52-2
 Obsoletes:	mod_auth_pgsql
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	%(%{apxs} -q SYSCONFDIR)
 %define		_pkglibdir	%(%{apxs} -q LIBEXECDIR)
@@ -97,7 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/httpd.conf/}
 
 install mod_%{mod_name}.so $RPM_BUILD_ROOT%{_pkglibdir}
-install %SOURCE1 $RPM_BUILD_ROOT/%{_sysconfdir}/httpd.conf/52_mod_auth_pgsql.conf
+install %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/httpd.conf/52_mod_auth_pgsql.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
