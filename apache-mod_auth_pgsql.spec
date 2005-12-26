@@ -26,12 +26,12 @@ URL:		http://www.giuseppetanzilli.it/mod_auth_pgsql2/
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0.52-2
 BuildRequires:	postgresql-devel
-Requires:	apache >= 2.0.52-2
+Requires:	apache(modules-api) = %apache_modules_api
 Obsoletes:	mod_auth_pgsql
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR)
-%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR)
+%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
+%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR 2>/dev/null)
 
 %description
 This is an authentication module for Apache that allows you to
