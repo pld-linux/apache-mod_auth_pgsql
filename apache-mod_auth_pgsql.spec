@@ -13,19 +13,18 @@ Summary(pl):	Modu³ uwierzytelnienia PostgreSQL dla Apache
 Summary(pt_BR):	Autenticação via PostgreSQL para o Apache
 Summary(sv):	Grundläggande autenticering till webbservern Apache med en PostgreSQL-databas
 Name:		apache-mod_%{mod_name}
-Version:	2.0.2
-%define	_beta	b1
-Release:	0.%{_beta}.1
+Version:	2.0.3
+Release:	1
 License:	GPL
 Group:		Networking/Daemons
-Source0:	http://www.giuseppetanzilli.it/mod_auth_pgsql2/dist/mod_%{mod_name}-%{version}%{_beta}.tar.gz
-# Source0-md5:	8216fde4597c288537ff4fec508a4b41
+Source0:	http://www.giuseppetanzilli.it/mod_auth_pgsql2/dist/mod_%{mod_name}-%{version}.tar.gz
+# Source0-md5:	d44074b3b9bdb0a5eb9702814872ad43
 Source1:	apache-mod_auth_pgsql.conf
-Patch0:		apache-mod_auth_pgsql.patch
 URL:		http://www.giuseppetanzilli.it/mod_auth_pgsql2/
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0.52-2
 BuildRequires:	postgresql-devel
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	apache(modules-api) = %apache_modules_api
 Obsoletes:	mod_auth_pgsql
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -81,8 +80,7 @@ servade av en webbserver genom att kontrollera data i en
 PostgreSQL-databas.
 
 %prep
-%setup -q -n mod_%{mod_name}-%{version}%{_beta}
-%patch0 -p1
+%setup -q -n mod_%{mod_name}-%{version}
 
 %build
 %{apxs} \
@@ -102,15 +100,11 @@ install %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/httpd.conf/52_mod_auth_pgsql.c
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ -f /var/lock/subsys/httpd ]; then
-	/etc/rc.d/init.d/httpd restart 1>&2
-fi
+%service -q httpd restart
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/httpd ]; then
-		/etc/rc.d/init.d/httpd restart 1>&2
-	fi
+	%service -q httpd restart
 fi
 
 %files
