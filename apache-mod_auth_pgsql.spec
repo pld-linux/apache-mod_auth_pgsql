@@ -21,7 +21,7 @@ Source0:	http://www.giuseppetanzilli.it/mod_auth_pgsql2/dist/mod_%{mod_name}-%{v
 # Source0-md5:	d44074b3b9bdb0a5eb9702814872ad43
 Source1:	apache-mod_auth_pgsql.conf
 URL:		http://www.giuseppetanzilli.it/mod_auth_pgsql2/
-BuildRequires:	apache-apxs >= 2.0
+BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0.52-2
 BuildRequires:	postgresql-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
