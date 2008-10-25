@@ -16,7 +16,7 @@ Name:		apache-mod_%{mod_name}
 Version:	2.0.3
 Release:	1
 License:	GPL
-Group:		Networking/Daemons
+Group:		Networking/Daemons/HTTP
 Source0:	http://www.giuseppetanzilli.it/mod_auth_pgsql2/dist/mod_%{mod_name}-%{version}.tar.gz
 # Source0-md5:	d44074b3b9bdb0a5eb9702814872ad43
 Source1:	apache-mod_auth_pgsql.conf
